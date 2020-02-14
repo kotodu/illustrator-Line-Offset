@@ -68,19 +68,16 @@ function crossPoint(x1, y1, x2, y2, x3, y3, x4, y4){
  */
 function pointOffset(x, y, m, offsetWidth) {
     // 計算の都合上、オフセット候補は2つ算出される
+    // 点(x,y)のオフセット先(x',y')と比較した時
     // OW^2=(x-x')^2+(y-y')^2
-    // y=mx
-    // y'=-x'/m
-    // (x-x')^2+(mx+x'/m)^2=OW^2
-    // これの展開間違えている気しかしない、数学3年ぶり
-    // (x-x')^2+((x-x')(m^2-1/m))^2
-    // (x-x')^2 * (1+(m^2 - 1/m)^2)
-    // var moveX = Math.sqrt(Math.abs(offsetWidth*offsetWidth-(m+1)*(m+1)));
+    // オフセット元直線の傾きがmなら
+    // それに直角に交わる線の傾きは-1/m
+    // |x-x'|をAと仮定した時、|y-y'|はmA
+    // OW^2=A^2+(mA)^2
+    // A^2 = OW/(1+m^2)
     var ow2 = offsetWidth*offsetWidth;
-    var m4 = m*m*m*m;
-    // var m2 = m*m;
-    // var moveX = Math.sqrt(Math.abs(ow2-(1+m4-2*m+1/m2)));
-    var moveX = Math.sqrt(Math.abs(ow2/(1+1/(m4))));
+    var m2 = m*m;
+    var moveX = Math.sqrt(Math.abs(ow2/(1+1/(m2))));
     var moveY = moveX*(-1/m);
     // (x,y)に(moveX,moveY)か(-moveX,-moveY)を補正したものが点移動先
     var option1 = [
@@ -192,12 +189,6 @@ function segmentsOffset(points,offsetWidth) {
         var m = nowSeg[2];
         var optionsP1 = pointOffset(nowSeg[0][0], nowSeg[0][1], m, offsetWidth);
         var optionsP2 = pointOffset(nowSeg[1][0], nowSeg[1][1], m, offsetWidth);
-        var newLine11 = myDoc.pathItems.add();
-        newLine11.stroked = true;
-        newLine11.setEntirePath(optionsP1);
-        var newLine12 = myDoc.pathItems.add();
-        newLine12.stroked = true;
-        newLine12.setEntirePath(optionsP2);
         $.writeln("optionsP1:"+optionsP1);
         $.writeln("optionsP2:"+optionsP2);
         // 各2候補、合計4候補、繋ぎ方6通り
