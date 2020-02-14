@@ -68,9 +68,11 @@ function crossPoint(x1, y1, x2, y2, x3, y3, x4, y4){
  */
 function pointOffset(x, y, m, offsetWidth) {
     // 計算の都合上、オフセット候補は2つ算出される
-    var moveX = Math.sqrt(offsetWidth*offsetWidth-(m+1)*(m+1));
+    // 
+    var moveX = Math.sqrt(Math.abs(offsetWidth*offsetWidth-(m+1)*(m+1)));
     var moveY = moveX*(-m);
     // (x,y)に(moveX,moveY)か(-moveX,-moveY)を補正したものが点移動先
+    $.writeln("moveX:"+moveX);
     var option1 = [
         x + moveX,
         y + moveY
@@ -101,9 +103,11 @@ function joinAndCheckPoints(optionsP1,optionsP2,mTrue){
         [optionsP1[0],optionsP2[0]],
         [optionsP1[0],optionsP2[1]]
     ]
+    $.writeln("mTrue"+mTrue);
     for (var i=0;i<optionPairs.length;i++){
         var pair = optionPairs[i];
         var mOption = (pair[0][1]-pair[1][1])/(pair[0][0]-pair[1][0]);
+        $.writeln("mOption"+mOption);
         if(Math.abs(mOption-mTrue)<0.0000001){
             // ==にすると誤差が？
             answers.push([pair[0],pair[1]]);
@@ -257,8 +261,7 @@ function segmentsOffset(points,offsetWidth) {
         var y4 = offsetSegmentsL[i+1][0][1];
         var point = [];
         point = crossPoint(x1,y1,x2,y2,x3,y3,x4,y4);
-        // $.writeln("point"+point);
-        decidedPathPointsL.push([point]);
+        decidedPathPointsL.push(point);
     }
     for(var i=0;i<offsetSegmentsR.length-1;i++){
         var x1 = offsetSegmentsR[i][0][0];
@@ -271,7 +274,7 @@ function segmentsOffset(points,offsetWidth) {
         var y4 = offsetSegmentsR[i+1][0][1];
         var point = [];
         point = crossPoint(x1,y1,x2,y2,x3,y3,x4,y4);
-        decidedPathPointsR.push([point]);
+        decidedPathPointsR.push(point);
     }
     // 最後に終点ポイントを決定、交点もなにもない
     // l1=l2で合ってくれないと困るけど、念の為
@@ -299,12 +302,17 @@ function createOffsetPath(points,offsetWidth){
     var createdData = segmentsOffset(points,offsetWidth);
     var newLine01 = myDoc.pathItems.add();
     newLine01.stroked = true;
-    $.writeln(createdData[0][0]);
-    newLine01.setEntirePath(createdData[0]);
-    var createdData = segmentsOffset(points,offsetWidth);
+    n01pp = createdData[0];
+    // for (var i=0;i<createdData[0].length;i++){
+    //     var xy = createdData[0][i];
+    //     newLine01.pathPoints.add().anchor=xy;
+    // }
+    newLine01.setEntirePath(n01pp);
+    // var createdData = segmentsOffset(points,offsetWidth);
     var newLine02 = myDoc.pathItems.add();
     newLine02.stroked = true;
-    newLine02.setEntirePath(createdData[1]);
+    var n02pp = createdData[1];
+    newLine02.setEntirePath(n02pp);
 }
 //---------------------------------------------
 /**
