@@ -80,7 +80,10 @@ function pointOffset(x, y, m, offsetWidth) {
         x - moveX,
         y - moveY
     ]
-    return ([option1,option2]);
+    $.writeln("option1:"+option1);
+    $.writeln("option2:"+option2);
+    var result = [option1,option2];
+    return result;
 }
 //---------------------------------------------
 /**
@@ -173,11 +176,13 @@ function segmentsOffset(points,offsetWidth) {
     var offsetSegmentsR = [];
     //---------------------------------------------
     // 線分がもつ点ごとに暫定オフセット
-    for (var i = 0; i < baseSegments.length - 1; i++) {
+    for (var i = 0; i < baseSegments.length; i++) {
         var nowSeg = baseSegments[i];
         var m = nowSeg[2];
         var optionsP1 = pointOffset(nowSeg[0][0], nowSeg[0][1], m, offsetWidth);
         var optionsP2 = pointOffset(nowSeg[1][0], nowSeg[1][1], m, offsetWidth);
+        $.writeln("optionsP1:"+optionsP1);
+        $.writeln("optionsP2:"+optionsP2);
         // 各2候補、合計4候補、繋ぎ方6通り
         // 繋いでも傾きがmになる2通りのみが正解の線分
         var answers = joinAndCheckPoints(optionsP1,optionsP2,m);
@@ -243,7 +248,7 @@ function segmentsOffset(points,offsetWidth) {
             }
         }
     }
-    $.writeln("osL.length"+offsetSegmentsL.length);
+    $.writeln("osL.length:"+offsetSegmentsL.length);
     // で、左右の仮オフセットセグメントごとに交点算出
     // まず最初の線分の起点は交点もなにもないので確定
     var decidedPathPointsL=[];
@@ -266,12 +271,16 @@ function segmentsOffset(points,offsetWidth) {
         var y2 = offsetSegmentsL[i][1][1];
         var x3 = offsetSegmentsL[i+1][0][0];
         var y3 = offsetSegmentsL[i+1][0][1];
-        var x4 = offsetSegmentsL[i+1][0][0];
-        var y4 = offsetSegmentsL[i+1][0][1];
+        var x4 = offsetSegmentsL[i+1][1][0];
+        var y4 = offsetSegmentsL[i+1][1][1];
         var point = [];
         point = crossPoint(x1,y1,x2,y2,x3,y3,x4,y4);
         decidedPathPointsL.push(point);
     }
+    // .lengthが7
+    // iは0,1,2,3,4,5の6回
+    // 01,12,23,34,45,56を比較し
+    // 点1,2,3,4,5,6を打つ
     for(var i=0;i<offsetSegmentsR.length-1;i++){
         var x1 = offsetSegmentsR[i][0][0];
         var y1 = offsetSegmentsR[i][0][1];
@@ -279,8 +288,8 @@ function segmentsOffset(points,offsetWidth) {
         var y2 = offsetSegmentsR[i][1][1];
         var x3 = offsetSegmentsR[i+1][0][0];
         var y3 = offsetSegmentsR[i+1][0][1];
-        var x4 = offsetSegmentsR[i+1][0][0];
-        var y4 = offsetSegmentsR[i+1][0][1];
+        var x4 = offsetSegmentsR[i+1][1][0];
+        var y4 = offsetSegmentsR[i+1][1][1];
         var point = [];
         point = crossPoint(x1,y1,x2,y2,x3,y3,x4,y4);
         decidedPathPointsR.push(point);
@@ -289,14 +298,15 @@ function segmentsOffset(points,offsetWidth) {
     // l1=l2で合ってくれないと困るけど、念の為
     var l1 = offsetSegmentsL.length-1;
     decidedPathPointsL.push([
-        offsetSegmentsL[l1][0][0],
-        offsetSegmentsL[l1][0][1],
+        offsetSegmentsL[l1][1][0],
+        offsetSegmentsL[l1][1][1],
     ]);
     var l2 = offsetSegmentsR.length-1;
     decidedPathPointsR.push([
-        offsetSegmentsR[l2][0][0],
-        offsetSegmentsR[l2][0][1],
+        offsetSegmentsR[l2][1][0],
+        offsetSegmentsR[l2][1][1],
     ]);
+    $.writeln("dPPL.length:"+decidedPathPointsL.length);
     var result = [decidedPathPointsL,decidedPathPointsR]
     return(result)
 }
