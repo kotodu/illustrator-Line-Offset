@@ -11,7 +11,7 @@
 // (1)ユーザーが指定する既定オフセット本数
 var userCounts = 4;
 // (2)ユーザーが指定する既定オフセット幅(px)
-var userWidth = 40.0;
+var userWidth = 24.0;
 //---------------------------------------------
 // 制作メモ
 // app.executeMenuCommand("OffsetPath v23");
