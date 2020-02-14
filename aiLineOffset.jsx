@@ -9,9 +9,9 @@
 //---------------------------------------------
 // ユーザー定義変数
 // (1)ユーザーが指定する既定オフセット本数
-var userCounts = 6;
+var userCounts = 4;
 // (2)ユーザーが指定する既定オフセット幅(px)
-var userWidth = 12.0;
+var userWidth = 30.0;
 //---------------------------------------------
 // 制作メモ
 // app.executeMenuCommand("OffsetPath v23");
@@ -72,7 +72,6 @@ function pointOffset(x, y, m, offsetWidth) {
     var moveX = Math.sqrt(Math.abs(offsetWidth*offsetWidth-(m+1)*(m+1)));
     var moveY = moveX*(-m);
     // (x,y)に(moveX,moveY)か(-moveX,-moveY)を補正したものが点移動先
-    $.writeln("moveX:"+moveX);
     var option1 = [
         x + moveX,
         y + moveY
@@ -185,6 +184,7 @@ function segmentsOffset(points,offsetWidth) {
         // とりあえず1線分から生まれる2つの新しい線分データを補完
         // [[x1,y1],[x2,y2],m],[[x3,y3],[x4,y4],m]
         $.writeln("answers.length"+answers.length);
+        $.writeln("answers0"+answers[0]);
         //---------------------------------------------
         // そのセグメントで、パスの流れに対しオフセット候補が右にあるか左にあるか判定
         // そのセグメントが起点から終点へYがプラスなら、
@@ -195,9 +195,11 @@ function segmentsOffset(points,offsetWidth) {
             // 起点から終点へYがプラス
             // 大きい方が右、小さい方が左
             if(answers[0][0][0]>answers[1][0][0]){
+                $.writeln("A1");
                 offsetSegmentsR[i]=answers[0];
                 offsetSegmentsL[i]=answers[1];
             } else{
+                $.writeln("A2");
                 offsetSegmentsR[i]=answers[1];
                 offsetSegmentsL[i]=answers[0];
             }
@@ -207,9 +209,11 @@ function segmentsOffset(points,offsetWidth) {
                 // 進行方向が左から右
                 // Y座標の大きい方が左、小さい方が右
                 if(answers[0][0][1]>answers[1][0][1]){
+                    $.writeln("B1");
                     offsetSegmentsR[i]=answers[1];
                     offsetSegmentsL[i]=answers[0];
                 } else{
+                    $.writeln("B2");
                     offsetSegmentsR[i]=answers[0];
                     offsetSegmentsL[i]=answers[1];
                 }
@@ -217,9 +221,11 @@ function segmentsOffset(points,offsetWidth) {
                 // 進行方向が右から左
                 // Y座標の小さい方が左、大きい方が右
                 if(answers[0][0][1]>answers[1][0][1]){
+                    $.writeln("B3");
                     offsetSegmentsR[i]=answers[0];
                     offsetSegmentsL[i]=answers[1];
                 } else{
+                    $.writeln("B4");
                     offsetSegmentsR[i]=answers[1];
                     offsetSegmentsL[i]=answers[0];
                 }
@@ -227,14 +233,17 @@ function segmentsOffset(points,offsetWidth) {
         } else{
             // 小さい方が右、大きい方が左
             if(answers[0][0][0]>answers[1][0][0]){
+                $.writeln("C1");
                 offsetSegmentsL[i]=answers[0];
                 offsetSegmentsR[i]=answers[1];
             } else{
+                $.writeln("C2");
                 offsetSegmentsL[i]=answers[1];
                 offsetSegmentsR[i]=answers[0];
             }
         }
     }
+    $.writeln("osL.length"+offsetSegmentsL.length);
     // で、左右の仮オフセットセグメントごとに交点算出
     // まず最初の線分の起点は交点もなにもないので確定
     var decidedPathPointsL=[];
