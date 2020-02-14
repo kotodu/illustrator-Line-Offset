@@ -120,15 +120,16 @@ function joinAndCheckPoints(optionsP1,optionsP2,mTrue){
  * @return {*} baseSegments [線分データ1,線分データ2,線分データ3...]
  */
 function createBaseSegments(points) {
-    var baseSegments = [[]]
+    $.writeln(points[3].anchor[1]);
+    var baseSegments = [[]];
     for (var i=0;i<points.length-1;i++){
         var startXY = [
-            points[i][0],
-            points[i][1]
+            points[i].anchor[0],
+            points[i].anchor[1]
         ];
         var endXY = [
-            points[i+1][0],
-            points[i+1][1]
+            points[i+1].anchor[0],
+            points[i+1].anchor[1]
         ];
         // m=y/x
         // y=mx
@@ -139,7 +140,7 @@ function createBaseSegments(points) {
             m
         ];
     }
-    return baseSegments
+    return baseSegments;
 }
 
 //---------------------------------------------
@@ -285,7 +286,7 @@ function segmentsOffset(points,offsetWidth) {
 //---------------------------------------------
 /**
  * 「createOffsetPath」segmentsOffsetで算出したPathItemsを格納し描画を行う
- * @param {*} points PathPoints、[[x1,y1],[x2,y2]...]
+ * @param {*} points points、[[x1,y1],[x2,y2]...]
  * @param Number(int) offsetWidth オフセット幅(px)。正の数も負の数も来る
  */
 function createOffsetPath(points,offsetWidth){
