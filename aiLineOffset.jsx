@@ -108,7 +108,7 @@ function joinAndCheckPoints(optionsP1,optionsP2,mTrue){
         $.writeln("mOption"+mOption);
         if(mOption-mTrue<0.00001){
             // ==にすると誤差が？
-            answers.push(pair[0],pair[1]);
+            answers.push([pair[0],pair[1]]);
             $.writeln("をPush!");
         }
     }
@@ -183,6 +183,7 @@ function segmentsOffset(points,offsetWidth) {
         var answers = joinAndCheckPoints(optionsP1,optionsP2,m);
         // とりあえず1線分から生まれる2つの新しい線分データを補完
         // [[x1,y1],[x2,y2],m],[[x3,y3],[x4,y4],m]
+        $.writeln("answers.length"+answers.length);
         //---------------------------------------------
         // そのセグメントで、パスの流れに対しオフセット候補が右にあるか左にあるか判定
         // そのセグメントが起点から終点へYがプラスなら、
@@ -233,6 +234,8 @@ function segmentsOffset(points,offsetWidth) {
             }
         }
     }
+    $.writeln("offsetSegmentsL")
+    $.writeln(offsetSegmentsL)
     // で、左右の仮オフセットセグメントごとに交点算出
     // まず最初の線分の起点は交点もなにもないので確定
     var decidedPathPointsL=[];
@@ -240,6 +243,8 @@ function segmentsOffset(points,offsetWidth) {
         offsetSegmentsL[0][0][0],
         offsetSegmentsL[0][0][1],
     ]);
+    $.writeln("decidedPathPointsL")
+    $.writeln(decidedPathPointsL)
     var decidedPathPointsR=[];
     decidedPathPointsR.push([
         offsetSegmentsR[0][0][0],
@@ -257,7 +262,7 @@ function segmentsOffset(points,offsetWidth) {
         var y3 = offsetSegmentsL[i+1][0][1];
         var x4 = offsetSegmentsL[i+1][0][0];
         var y4 = offsetSegmentsL[i+1][0][1];
-        decidedPathPointsL.push(crossPoint(x1,y1,x2,y2,x3,y3,x4,y4));
+        decidedPathPointsL.push([crossPoint(x1,y1,x2,y2,x3,y3,x4,y4)]);
     }
     for(var i=0;i<offsetSegmentsR;i++){
         var x1 = offsetSegmentsR[i][0][0];
@@ -268,7 +273,7 @@ function segmentsOffset(points,offsetWidth) {
         var y3 = offsetSegmentsR[i+1][0][1];
         var x4 = offsetSegmentsR[i+1][0][0];
         var y4 = offsetSegmentsR[i+1][0][1];
-        decidedPathPointsR.push(crossPoint(x1,y1,x2,y2,x3,y3,x4,y4));
+        decidedPathPointsR.push([crossPoint(x1,y1,x2,y2,x3,y3,x4,y4)]);
     }
     // 最後に終点ポイントを決定、交点もなにもない
     // l1=l2で合ってくれないと困るけど、念の為
@@ -296,7 +301,7 @@ function createOffsetPath(points,offsetWidth){
     var createdData = segmentsOffset(points,offsetWidth);
     var newLine01 = myDoc.pathItems.add();
     newLine01.stroked = true;
-    $.writeln(createdData[0]);
+    $.writeln(createdData[0][0]);
     newLine01.setEntirePath(createdData[0]);
     var createdData = segmentsOffset(points,offsetWidth);
     var newLine02 = myDoc.pathItems.add();
