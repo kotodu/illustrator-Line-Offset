@@ -116,7 +116,16 @@ function joinAndCheckPoints(optionsP1,optionsP2,mTrue){
     $.writeln("mTrue"+mTrue);
     for (var i=0;i<optionPairs.length;i++){
         var pair = optionPairs[i];
-        var mOption = (pair[0][1]-pair[1][1])/(pair[0][0]-pair[1][0]);
+        if ((Math.abs(pair[0][1]-pair[1][1]))<0.0000001){
+            // 傾きが異常に小さい、Y座標が同じ、X軸に平行
+            // どちらかに差がほぼなければ、これでみなす
+            var mOption = 0.000000001;
+        } else if ((Math.abs(pair[0][0]-pair[1][0]))<0.0000001){
+            // Y軸にほぼ平行
+            var mOption = 888888.888888;
+        } else{
+            var mOption = (pair[0][1]-pair[1][1])/(pair[0][0]-pair[1][0]);
+        }
         $.writeln("mOption"+mOption);
         if(Math.abs(mOption-mTrue)<0.0000001){
             // ==にすると誤差が？
@@ -147,7 +156,15 @@ function createBaseSegments(points) {
         ];
         // m=y/x
         // y=mx
-        var m = (startXY[1]-endXY[1])/(startXY[0]-endXY[0]);
+        if ((Math.abs((startXY[1]-endXY[1]))<0.0000001)){
+            // Y座標が同じ、X軸に平行
+            // どちらかに差がほぼなければ、これでみなす
+            var m = 0.000000001;
+        } else if (Math.abs((startXY[0]-endXY[0]))<0.0000001){
+            var m = 888888.888888;
+        } else{
+            var m = (startXY[1]-endXY[1])/(startXY[0]-endXY[0]);
+        }
         baseSegments[i]=[
             startXY,
             endXY,
@@ -208,11 +225,11 @@ function segmentsOffset(points,offsetWidth) {
             // 起点から終点へYがプラス
             // 大きい方が右、小さい方が左
             if(answers[0][0][0]>answers[1][0][0]){
-                $.writeln("A1");
+                // $.writeln("A1");
                 offsetSegmentsR[i]=answers[0];
                 offsetSegmentsL[i]=answers[1];
             } else{
-                $.writeln("A2");
+                // $.writeln("A2");
                 offsetSegmentsR[i]=answers[1];
                 offsetSegmentsL[i]=answers[0];
             }
@@ -222,11 +239,11 @@ function segmentsOffset(points,offsetWidth) {
                 // 進行方向が左から右
                 // Y座標の大きい方が左、小さい方が右
                 if(answers[0][0][1]>answers[1][0][1]){
-                    $.writeln("B1");
+                    // $.writeln("B1");
                     offsetSegmentsR[i]=answers[1];
                     offsetSegmentsL[i]=answers[0];
                 } else{
-                    $.writeln("B2");
+                    // $.writeln("B2");
                     offsetSegmentsR[i]=answers[0];
                     offsetSegmentsL[i]=answers[1];
                 }
@@ -234,11 +251,11 @@ function segmentsOffset(points,offsetWidth) {
                 // 進行方向が右から左
                 // Y座標の小さい方が左、大きい方が右
                 if(answers[0][0][1]>answers[1][0][1]){
-                    $.writeln("B3");
+                    // $.writeln("B3");
                     offsetSegmentsR[i]=answers[0];
                     offsetSegmentsL[i]=answers[1];
                 } else{
-                    $.writeln("B4");
+                    // $.writeln("B4");
                     offsetSegmentsR[i]=answers[1];
                     offsetSegmentsL[i]=answers[0];
                 }
@@ -246,11 +263,11 @@ function segmentsOffset(points,offsetWidth) {
         } else{
             // 小さい方が右、大きい方が左
             if(answers[0][0][0]>answers[1][0][0]){
-                $.writeln("C1");
+                // $.writeln("C1");
                 offsetSegmentsL[i]=answers[0];
                 offsetSegmentsR[i]=answers[1];
             } else{
-                $.writeln("C2");
+                // $.writeln("C2");
                 offsetSegmentsL[i]=answers[1];
                 offsetSegmentsR[i]=answers[0];
             }
