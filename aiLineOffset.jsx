@@ -101,8 +101,8 @@ function joinAndCheckPoints(optionsP1,optionsP2,mTrue){
         [optionsP1[0],optionsP2[0]],
         [optionsP1[0],optionsP2[1]]
     ]
-    // adobeでfor ofって出来た？
-    for (var pair of optionPairs){
+    for (var i=0;i<optionPairs.length;i++){
+        var pair = optionPairs[i];
         var mOption = (pair[0][1]-pair[1][1])/(pair[0][0]-pair[0][0]);
         if(mOption ==mTrue){
             answers.push(pair[0],pair[1],m);
