@@ -324,7 +324,7 @@ function generate(countNum,widthpx){
                 // 偶数
                 // 初回オフセットは偶数なら指定幅の半分
                 // j*widthpxでどれだけオフセットするのかに該当
-                var nowpx = j*widthpx/2;
+                var nowpx = widthpx/2;
                 createOffsetPath(points,nowpx);
                 for (var j=2; j < countNum;j+=2){
                     nowpx+= widthpx;
