@@ -172,8 +172,8 @@ function segmentsOffset(points,offsetWidth) {
     for (var i = 0; i < baseSegments.length - 1; i++) {
         var nowSeg = baseSegments[i];
         var m = nowSeg[2];
-        var optionsP1 = pointOffset(nowSeg[0][0], nowseg[0][1], m, offsetWidth);
-        var optionsP2 = pointOffset(nowSeg[1][0], nowseg[1][1], m, offsetWidth);
+        var optionsP1 = pointOffset(nowSeg[0][0], nowSeg[0][1], m, offsetWidth);
+        var optionsP2 = pointOffset(nowSeg[1][0], nowSeg[1][1], m, offsetWidth);
         // 各2候補、合計4候補、繋ぎ方6通り
         // 繋いでも傾きがmになる2通りのみが正解の線分
         var answers = joinAndCheckPoints(optionsP1,optionsP2,m);
