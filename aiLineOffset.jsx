@@ -11,7 +11,7 @@
 // (1)ユーザーが指定する既定オフセット本数
 var userCounts = 4;
 // (2)ユーザーが指定する既定オフセット幅(px)
-var userWidth = 30.0;
+var userWidth = 40.0;
 //---------------------------------------------
 // 制作メモ
 // app.executeMenuCommand("OffsetPath v23");
@@ -68,9 +68,20 @@ function crossPoint(x1, y1, x2, y2, x3, y3, x4, y4){
  */
 function pointOffset(x, y, m, offsetWidth) {
     // 計算の都合上、オフセット候補は2つ算出される
-    // 
-    var moveX = Math.sqrt(Math.abs(offsetWidth*offsetWidth-(m+1)*(m+1)));
-    var moveY = moveX*(-m);
+    // OW^2=(x-x')^2+(y-y')^2
+    // y=mx
+    // y'=-x'/m
+    // (x-x')^2+(mx+x'/m)^2=OW^2
+    // これの展開間違えている気しかしない、数学3年ぶり
+    // (x-x')^2+((x-x')(m^2-1/m))^2
+    // (x-x')^2 * (1+(m^2 - 1/m)^2)
+    // var moveX = Math.sqrt(Math.abs(offsetWidth*offsetWidth-(m+1)*(m+1)));
+    var ow2 = offsetWidth*offsetWidth;
+    var m4 = m*m*m*m;
+    // var m2 = m*m;
+    // var moveX = Math.sqrt(Math.abs(ow2-(1+m4-2*m+1/m2)));
+    var moveX = Math.sqrt(Math.abs(ow2/(1+1/(m4))));
+    var moveY = moveX*(-1/m);
     // (x,y)に(moveX,moveY)か(-moveX,-moveY)を補正したものが点移動先
     var option1 = [
         x + moveX,
@@ -102,8 +113,8 @@ function joinAndCheckPoints(optionsP1,optionsP2,mTrue){
     var optionPairs = [
         [optionsP1[0],optionsP2[0]],
         [optionsP1[0],optionsP2[1]],
-        [optionsP1[0],optionsP2[0]],
-        [optionsP1[0],optionsP2[1]]
+        [optionsP1[1],optionsP2[0]],
+        [optionsP1[1],optionsP2[1]]
     ]
     $.writeln("mTrue"+mTrue);
     for (var i=0;i<optionPairs.length;i++){
@@ -181,6 +192,12 @@ function segmentsOffset(points,offsetWidth) {
         var m = nowSeg[2];
         var optionsP1 = pointOffset(nowSeg[0][0], nowSeg[0][1], m, offsetWidth);
         var optionsP2 = pointOffset(nowSeg[1][0], nowSeg[1][1], m, offsetWidth);
+        var newLine11 = myDoc.pathItems.add();
+        newLine11.stroked = true;
+        newLine11.setEntirePath(optionsP1);
+        var newLine12 = myDoc.pathItems.add();
+        newLine12.stroked = true;
+        newLine12.setEntirePath(optionsP2);
         $.writeln("optionsP1:"+optionsP1);
         $.writeln("optionsP2:"+optionsP2);
         // 各2候補、合計4候補、繋ぎ方6通り
@@ -321,17 +338,11 @@ function createOffsetPath(points,offsetWidth){
     var createdData = segmentsOffset(points,offsetWidth);
     var newLine01 = myDoc.pathItems.add();
     newLine01.stroked = true;
-    n01pp = createdData[0];
-    // for (var i=0;i<createdData[0].length;i++){
-    //     var xy = createdData[0][i];
-    //     newLine01.pathPoints.add().anchor=xy;
-    // }
-    newLine01.setEntirePath(n01pp);
+    newLine01.setEntirePath(createdData[0]);
     // var createdData = segmentsOffset(points,offsetWidth);
     var newLine02 = myDoc.pathItems.add();
     newLine02.stroked = true;
-    var n02pp = createdData[1];
-    newLine02.setEntirePath(n02pp);
+    newLine02.setEntirePath(createdData[1]);
 }
 //---------------------------------------------
 /**
