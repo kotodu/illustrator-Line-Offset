@@ -9,7 +9,7 @@
 //---------------------------------------------
 // ユーザー定義変数
 // (1)ユーザーが指定する既定オフセット本数
-var userCounts = 3;
+var userCounts = 6;
 // (2)ユーザーが指定する既定オフセット幅(px)
 var userWidth = 12.0;
 //---------------------------------------------
@@ -166,8 +166,8 @@ function segmentsOffset(points,offsetWidth) {
     //     [[x7,y7],[x8,y8]],
     //     ...
     // ]
-    var offsetSegmentsL = [[]];
-    var offsetSegmentsR = [[]];
+    var offsetSegmentsL = [];
+    var offsetSegmentsR = [];
     //---------------------------------------------
     // 線分がもつ点ごとに暫定オフセット
     for (var i = 0; i < baseSegments.length - 1; i++) {
@@ -231,23 +231,22 @@ function segmentsOffset(points,offsetWidth) {
             }
         }
     }
-    $.writeln("offsetSegmentsL.length"+offsetSegmentsL.length)
     // で、左右の仮オフセットセグメントごとに交点算出
     // まず最初の線分の起点は交点もなにもないので確定
     var decidedPathPointsL=[];
     decidedPathPointsL.push([
         offsetSegmentsL[0][0][0],
-        offsetSegmentsL[0][0][1],
+        offsetSegmentsL[0][0][1]
     ]);
     var decidedPathPointsR=[];
     decidedPathPointsR.push([
         offsetSegmentsR[0][0][0],
-        offsetSegmentsR[0][0][1],
+        offsetSegmentsR[0][0][1]
     ]);
     // 2線分間の交点を算出し、確定パスポイント配列に格納
     // もし120ポイントあったなら、119セグメントが出来ているはず
     // 最初の1個+for文で119セグメントの交点118個+最後の1個
-    for(var i=0;i<offsetSegmentsL;i++){
+    for(var i=0;i<offsetSegmentsL.length-1;i++){
         var x1 = offsetSegmentsL[i][0][0];
         var y1 = offsetSegmentsL[i][0][1];
         var x2 = offsetSegmentsL[i][1][0];
@@ -258,10 +257,10 @@ function segmentsOffset(points,offsetWidth) {
         var y4 = offsetSegmentsL[i+1][0][1];
         var point = [];
         point = crossPoint(x1,y1,x2,y2,x3,y3,x4,y4);
-        $.writeln("point"+point)
-        decidedPathPointsL.push(point);
+        // $.writeln("point"+point);
+        decidedPathPointsL.push([point]);
     }
-    for(var i=0;i<offsetSegmentsR;i++){
+    for(var i=0;i<offsetSegmentsR.length-1;i++){
         var x1 = offsetSegmentsR[i][0][0];
         var y1 = offsetSegmentsR[i][0][1];
         var x2 = offsetSegmentsR[i][1][0];
@@ -272,7 +271,7 @@ function segmentsOffset(points,offsetWidth) {
         var y4 = offsetSegmentsR[i+1][0][1];
         var point = [];
         point = crossPoint(x1,y1,x2,y2,x3,y3,x4,y4);
-        decidedPathPointsR.push(point);
+        decidedPathPointsR.push([point]);
     }
     // 最後に終点ポイントを決定、交点もなにもない
     // l1=l2で合ってくれないと困るけど、念の為
@@ -286,7 +285,6 @@ function segmentsOffset(points,offsetWidth) {
         offsetSegmentsR[l2][0][0],
         offsetSegmentsR[l2][0][1],
     ]);
-    $.writeln("decidedPathPointsL.length"+decidedPathPointsL.length)
     var result = [decidedPathPointsL,decidedPathPointsR]
     return(result)
 }
