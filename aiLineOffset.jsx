@@ -101,11 +101,15 @@ function joinAndCheckPoints(optionsP1,optionsP2,mTrue){
         [optionsP1[0],optionsP2[0]],
         [optionsP1[0],optionsP2[1]]
     ]
+    $.writeln("mTrue:"+mTrue);
     for (var i=0;i<optionPairs.length;i++){
         var pair = optionPairs[i];
-        var mOption = (pair[0][1]-pair[1][1])/(pair[0][0]-pair[0][0]);
-        if(mOption ==mTrue){
-            answers.push(pair[0],pair[1],m);
+        var mOption = (pair[0][1]-pair[1][1])/(pair[0][0]-pair[1][0]);
+        $.writeln("mOption"+mOption);
+        if(mOption-mTrue<0.00001){
+            // ==にすると誤差が？
+            answers.push(pair[0],pair[1]);
+            $.writeln("をPush!");
         }
     }
     // オフセット後の2線分があるはず、ただし順不同かな？
@@ -120,7 +124,6 @@ function joinAndCheckPoints(optionsP1,optionsP2,mTrue){
  * @return {*} baseSegments [線分データ1,線分データ2,線分データ3...]
  */
 function createBaseSegments(points) {
-    $.writeln(points[3].anchor[1]);
     var baseSegments = [[]];
     for (var i=0;i<points.length-1;i++){
         var startXY = [
@@ -327,15 +330,14 @@ function generate(countNum,widthpx){
                     createOffsetPath(points,nowpx);
                 }
             } else{
-                $.writeln("ハロー？")
                 // 奇数、初回オフセットはそのまま複製
-                // 
                 var newLine = myLine.duplicate();
                 newLine.stroked = true;
                 var nowpx = 0;
                 for (var j=1; j < countNum;j+=2){
                     nowpx+= widthpx;
                     createOffsetPath(points,nowpx);
+                    $.writeln(j+"回目描画終了");
                 }
             }
         } else{
@@ -359,10 +361,12 @@ function useropt() {
         var countNum = Math.ceil(parseInt(iCounts.text, 10));
         var widthpx = parseInt(iWidthpx.text, 10);
         win.close();
-        $.writeln(countNum);
+        $.writeln("---------------------------------------------");
+        $.writeln("計算開始");
         if (widthpx > 0&&countNum > 0){
             // 0pxオフセットと0回はさすがに回避
             generate(countNum,widthpx);
+            $.writeln("計算終了");
         } else{
             window.alert("入力された数または幅が想定されていません");
         }
