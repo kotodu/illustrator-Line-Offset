@@ -272,12 +272,12 @@ function segmentsOffset(points,offsetWidth) {
     }
     // 最後に終点ポイントを決定、交点もなにもない
     // l1=l2で合ってくれないと困るけど、念の為
-    var l1 = offsetSegmentsL.length;
+    var l1 = offsetSegmentsL.length-1;
     decidedPathPointsL.push([
         offsetSegmentsL[l1][0][0],
         offsetSegmentsL[l1][0][1],
     ]);
-    var l2 = offsetSegmentsR.length;
+    var l2 = offsetSegmentsR.length-1;
     decidedPathPointsR.push([
         offsetSegmentsR[l2][0][0],
         offsetSegmentsR[l2][0][1],
@@ -296,11 +296,12 @@ function createOffsetPath(points,offsetWidth){
     var createdData = segmentsOffset(points,offsetWidth);
     var newLine01 = myDoc.pathItems.add();
     newLine01.stroked = true;
+    $.writeln(createdData[0]);
     newLine01.setEntirePath(createdData[0]);
     var createdData = segmentsOffset(points,offsetWidth);
-    var newLine01 = myDoc.pathItems.add();
-    newLine01.stroked = true;
-    newLine01.setEntirePath(createdData[0]);
+    var newLine02 = myDoc.pathItems.add();
+    newLine02.stroked = true;
+    newLine02.setEntirePath(createdData[1]);
 }
 //---------------------------------------------
 /**
