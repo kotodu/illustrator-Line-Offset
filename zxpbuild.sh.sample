@@ -1,0 +1,19 @@
+#!/bin/bash
+
+die() { echo "$@" 1>&2 ; exit 1; }
+
+SIGNCMD="C:/Users/YourName/Documents/ZXPSignCmd"
+SRCDIR="C:/Users/YourName/Documents/GitHub/illustrator-Line-Offset/src"
+SIGFILE="C:/Users/YourName/Documents/sign.p12"
+ZXPFILE="C:/Users/YourName/Documents/GitHub/illustrator-Line-Offset/dist/ilo.zxp"
+PW="somepassword"
+
+if [ ! -f $SIGNCMD ]; then die "サインコマンドが見つからない"; fi
+if [ ! -d $SRCDIR ];  then die "ソースフォルダが見つからない"; fi
+if [ ! -f $SIGFILE ]; then die "証明書が見つからない"; fi
+
+# ZXPを事前に削除
+if [ -f $ZXPFILE ] ; then rm $ZXPFILE ; fi
+
+# パッケージ・署名
+$SIGNCMD -sign "$SRCDIR" $ZXPFILE $SIGFILE $PW -tsa https://timestamp.geotrust.com/tsa

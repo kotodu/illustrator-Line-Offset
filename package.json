@@ -1,0 +1,21 @@
+{
+  "name": "illustrator-line-offset",
+  "version": "0.2.0",
+  "description": "illustratorで線を高機能にオフセットできるスクリプト",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "cp":"cp -r ./src C:/Program Files (x86)/Common Files/Adobe/CEP/extensions/io.ktodu.ilo020"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kotodu/illustrator-Line-Offset.git"
+  },
+  "author": "kotodu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kotodu/illustrator-Line-Offset/issues"
+  },
+  "homepage": "https://github.com/kotodu/illustrator-Line-Offset#readme"
+}
