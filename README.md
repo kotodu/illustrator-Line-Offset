@@ -73,6 +73,10 @@ jsxの冒頭に「ユーザー定義変数」があるので、ここを変え�
     - build, deploy, check
 `npm run deploy`
 
+### build:tsc
+- TypeScriptで記述したソースをビルドする
+`npm run build:zxp`
+
 ### build:zxp
 - 拡張機能のzxpデータをビルドする
 `npm run build:zxp`
