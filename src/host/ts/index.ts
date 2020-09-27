@@ -23,8 +23,8 @@
 // var myDoc = app.activeDocument;
 // var myLines = myDoc.selection;
 //---------------------------------------------
-import { Ipoint } from "./points";
-import { ISeg } from "./segs";
+import { Ipoint } from "./if/points";
+import { ISeg } from "./if/segs";
 // 線分AB,CDのペアA(x1,y1),B(x2,y2),C(x3,y3),D(x4,y4)
 // P1,P2,P3で、P1P2とP2P3を仮オフセットした線分AB,CDからその交点を算出したい
 /**
@@ -471,7 +471,7 @@ function generate(countNum: number, widthpx: number) {
  * @summary アプリケーションがセーブされているか
  * @returns {boolean} セーブされていればtrue,それ以外はfalse
  */
-const isSaved = ():boolean => {
+function isSaved():boolean {
     return app.activeDocument.saved;
 }
 
@@ -479,7 +479,7 @@ const isSaved = ():boolean => {
  * @summary ドキュメントを最低1つは開いているかどうか
  * @returns {boolean} 何も開いていなければfalse,それ以外はtrue
  */
-const isOpenDoc = (): boolean => {
+function isOpenDoc(): boolean {
     const docsCount:number = app.documents.length;
     if (docsCount > 0) {
         return true;

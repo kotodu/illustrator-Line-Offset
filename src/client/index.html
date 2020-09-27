@@ -8,56 +8,60 @@
 <body>
     <h1 class="text-center">illustrator-Line-Offset 0.2.0</h1>
     <!-- フォーム -->
-    <form id="ilo-options" class="container" name="ilo-option">
+    <form id="ilo-options" class="container" name="ilo-option" novalidate>
         <div class="mb-3 row">
             <label for="offsetCount" class="form-label col-auto">(1)指定オフセット数</label>
             <input
+            name="offsetCount"
             type="number"
             class="form-control col-auto"
             id="offsetCount"
             min="1"
             max="30"
             value="4"
-            required="true"
+            required
             aria-describedby="offsetCountHelp">
             <div
             id="offsetCountHelp"
             class="form-text col-auto">
                 1から30までの整数を指定してください
             </div>
-            <div class="valid-feedback">
+            <div class="valid-feedback col-auto">
                 OK
             </div>
-            <div class="invalid-feedback">
+            <div class="invalid-feedback col-auto">
                 値が不正です
             </div>
         </div>
         <div class="mb-3 row">
             <label for="offsetWidth" class="form-label col-auto">(2)指定オフセット幅</label>
             <input
+            name="offsetWidth"
             type="number"
             class="form-control col-auto"
             id="offsetWidth"
             min="1"
             max="999"
             value="12"
-            required="true"
+            required
             aria-describedby="offsetWidthHelp">
             <div
             id="offsetWidthHelp"
             class="form-text col-auto">
                 1から999までの整数を指定してください
             </div>
-            <div class="valid-feedback">
+            <div class="valid-feedback col-auto">
                 OK
             </div>
-            <div class="invalid-feedback">
+            <div class="invalid-feedback col-auto">
                 値が不正です
             </div>
         </div>
-        <button id="option-submit" type="submit" class="btn btn-primary">オフセット実行</button>
+        <button id="option-submit" type="button" class="btn btn-primary">オフセット実行</button>
     </form>
-
+    <div class="text-center">
+        <textarea id="ta" rows="200" cols="50" readonly class="mx-3 my-3"></textarea>
+    </div>
     <!-- 2) A button -->
     <!-- <button id="open-button" class="btn btn-primary btn-block">Open</button>
     <p id="buttonComment"></p> -->
