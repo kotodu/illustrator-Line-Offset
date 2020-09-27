@@ -58,6 +58,7 @@ jsxの冒頭に「ユーザー定義変数」があるので、ここを変え�
     - 想定しているフォルダ構成は別記の通りです
 - 今回使用していませんが、zxpのビルドにはシェルスクリプトも用意しました
 - powershellが環境変数にセットされている前提です
+- sampleを元に、powershellのデータを各自で用意いただく形になります
 
 ## npm-scriptsで想定している物
 
@@ -96,7 +97,9 @@ C:/Users/YourName/Documents
 │ 　 ├ src
 │ 　 │ └ ソースコード群
 │ 　 ├ package.json
-│ 　 ├ zxpbuild.ps1(拡張機能ビルド用powershell)
+│ 　 ├ build.ps1(拡張機能ビルド用powershell)
+│ 　 ├ clean.ps1(拡張機能アンインストール用powershell)
+│ 　 ├ install.ps1(拡張機能インストール用powershell)
 │ 　 └ zxpbuild.sh.sample(今回未使用のビルド用シェルスクリプト)
 ├ ExManCmd_win
 │ └ ExManCmd.exe(インストール用CUI)
