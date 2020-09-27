@@ -16,4 +16,4 @@ if [ ! -f $SIGFILE ]; then die "証明書が見つからない"; fi
 if [ -f $ZXPFILE ] ; then rm $ZXPFILE ; fi
 
 # パッケージ・署名
-$SIGNCMD -sign "$SRCDIR" $ZXPFILE $SIGFILE $PW -tsa https://timestamp.geotrust.com/tsa
+$SIGNCMD -sign "$SRCDIR" $ZXPFILE $SIGFILE $PW

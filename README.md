@@ -52,3 +52,54 @@ jsxの冒頭に「ユーザー定義変数」があるので、ここを変え�
 
 # 設計
 [設計.md](./doc/設計.md)
+
+# npm-scriptについて
+- windows向けですので、各自で適宜変更してください
+    - 想定しているフォルダ構成は別記の通りです
+- 今回使用していませんが、zxpのビルドにはシェルスクリプトも用意しました
+- powershellが環境変数にセットされている前提です
+
+## npm-scriptsで想定している物
+
+### clean
+- io.kotodu.iloをアンインストールする
+    - 結果のステータスが-406なら、そもそも拡張機能が存在しない
+
+`npm run clean`
+
+### deploy
+- cleanを除く一連の動作を全て実行する
+    - build, deploy, check
+`npm run deploy`
+
+### build:zxp
+- 拡張機能のzxpデータをビルドする
+`npm run build:zxp`
+
+### deploy:zxp
+- ビルドデータをillustratorにインストールする
+`npm run deploy:zxp`
+
+### check
+- インストールできたか確認する
+`npm run check`
+
+## 想定しているフォルダ構成
+- パスを適宜変える必要があります
+
+```
+C:/Users/YourName/Documents
+├ Github
+│ └ illustrator-Line-Offset
+│ 　 ├ dist(ビルドしたものを出力するディレクトリ)
+│ 　 │ └ ilo.zxp(出力拡張機能)
+│ 　 ├ src
+│ 　 │ └ ソースコード群
+│ 　 ├ package.json
+│ 　 ├ zxpbuild.ps1(拡張機能ビルド用powershell)
+│ 　 └ zxpbuild.sh.sample(今回未使用のビルド用シェルスクリプト)
+├ ExManCmd_win
+│ └ ExManCmd.exe(インストール用CUI)
+├ ZXPSignCmd.exe(ZXP用の証明書発行exe)
+└ sign.p12(ZXPSignCmd.exeから出力された証明書)
+```
