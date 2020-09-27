@@ -25,7 +25,7 @@
           <!-- 4) -->
           <MainPath>./client/index.html</MainPath>
           <!-- 5) -->
-          <ScriptPath>./host/index.js</ScriptPath>
+          <ScriptPath>./host/js/index.js</ScriptPath>
           <CEFCommandLine />
         </Resources>
         <Lifecycle>
