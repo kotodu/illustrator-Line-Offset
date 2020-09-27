@@ -1,0 +1,9 @@
+# フォルダの場所
+$EXMANCMD="C:/Users/YourName/Documents/ExManCmd_win/ExManCmd.exe"
+$ExtensionBundleId="io.kotodu.ilo"
+$ZXPFILE="C:/Users/YourName/Documents/GitHub/illustrator-Line-Offset/dist/ilo.zxp"
+
+# パッケージ・署名
+Start-Process -FilePath $EXMANCMD -ArgumentList "/install $ZXPFILE" -Wait -Verb runas
+
+exit

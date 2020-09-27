@@ -1,0 +1,14 @@
+$SIGNCMD="C:/Users/YourName/Documents/ZXPSignCmd"
+$SRCDIR="C:/Users/YourName/Documents/GitHub/illustrator-Line-Offset/src"
+$SIGFILE="C:/Users/YourName/Documents/sign.p12"
+$ZXPFILE="C:/Users/YourName/Documents/GitHub/illustrator-Line-Offset/dist/ilo.zxp"
+$PW="kotorailway"
+
+# ZXPを事前に削除
+if (Test-Path $ZXPFILE){
+    Remove-Item $ZXPFILE
+}
+
+# パッケージ・署名
+Start-Process -FilePath $SIGNCMD -ArgumentList "-sign $SRCDIR $ZXPFILE $SIGFILE $PW" -Wait
+exit
