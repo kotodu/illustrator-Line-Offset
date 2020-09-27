@@ -1,6 +1,11 @@
 # illustrator-Line-Offset
 illustratorで線を高機能にオフセットできるスクリプト
 
+- ***注意***
+    - 現在、ver1.0.0に向けた開発を実行中
+    - AdobeCEP対応やtypescript対応などでmasterが不安定です
+    - 安定版のダウンロードは[こちら](https://github.com/kotodu/illustrator-Line-Offset/releases/tag/0.1.0)
+
 # 概要
 - illustratorでパスのオフセットを複数本同時に行う
     - 今後もしかしたら機能を拡充するかも
@@ -22,7 +27,7 @@ illustratorで線を高機能にオフセットできるスクリプト
 1. OKを押すと新たなパスが生成されます
 
 # サンプル
-![サンプル](./doc/lineOffset.PNG)
+![サンプル](./docs/lineOffset.PNG)
 
 # バージョン履歴
 [CHANGELOG.md](./CHANGELOG)

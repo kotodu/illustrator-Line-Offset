@@ -13,6 +13,9 @@
 - 不具合修正 -->
 
 ## [Unreleased]
+- 1.0.0に向け諸々を実装中(現在、非常に不安定)
+    - adobe-CEP対応
+    - typescript対応
 ### Added
 ### Changed
 ### Deprecated
