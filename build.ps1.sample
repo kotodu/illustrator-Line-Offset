@@ -1,5 +1,5 @@
 $SIGNCMD="C:/Users/YourName/Documents/ZXPSignCmd"
-$SRCDIR="C:/Users/YourName/Documents/GitHub/illustrator-Line-Offset/src"
+$SRCDIR="C:/Users/YourName/Documents/GitHub/illustrator-Line-Offset/dist/src"
 $SIGFILE="C:/Users/YourName/Documents/sign.p12"
 $ZXPFILE="C:/Users/YourName/Documents/GitHub/illustrator-Line-Offset/dist/ilo.zxp"
 $PW="kotorailway"

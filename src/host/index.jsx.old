@@ -99,7 +99,8 @@ function pointOffset(x, y, m, offsetWidth) {
  * 正しい傾きかどうか、mTrueで指定された傾きを用いて判定する
  * @param {*} optionsP1 
  * @param {*} optionsP2 
- * @param {*} mTrue 
+ * @param {Number} mTrue オフセット元の線の傾き。
+ * @returns {Array<Array<Number>>}
  */
 function joinAndCheckPoints(optionsP1,optionsP2,mTrue){
     // 線分の2点から暫定的にオフセットし4点の候補を作る
@@ -137,11 +138,11 @@ function joinAndCheckPoints(optionsP1,optionsP2,mTrue){
 }
 //---------------------------------------------
 /**
- * 「createBaseSegments」pointsデータから線分データを作成する
+ * @summary pointsデータから線分データを作成する
  * 線分データは[[x1,y1],[x2,y2],m]
  * mはその線分の傾き
- * @param {*} points 
- * @return {*} baseSegments [線分データ1,線分データ2,線分データ3...]
+ * @param {Array} points 
+ * @return {Array} baseSegments [線分データ1,線分データ2,線分データ3...]
  */
 function createBaseSegments(points) {
     var baseSegments = [[]];
@@ -176,11 +177,11 @@ function createBaseSegments(points) {
 
 //---------------------------------------------
 /**
- * 「segmentsOffset」オフセットを行うよう各関数へ投げ、
+ * @summary オフセットを行うよう各関数へ投げ、
  * 受け取ったデータを整形、2つのオフセット後のデータを返す
- * @param {*} points [[x1,y1],[x2,y2]...]
- * @param Number(int) offsetWidth
- * @return result [左のPathPoints配列,右のPathPoints配列]
+ * @param {Array<Array<Number>>} points [[x1,y1],[x2,y2]...]
+ * @param {Number} offsetWidth オフセット幅
+ * @returns {Array<Array<Number>>} result [左のPathPoints配列,右のPathPoints配列]
  */
 function segmentsOffset(points,offsetWidth) {
     // 120pointsあるなら119segmentsができるはず
@@ -338,9 +339,9 @@ function segmentsOffset(points,offsetWidth) {
 
 //---------------------------------------------
 /**
- * 「createOffsetPath」segmentsOffsetで算出したPathItemsを格納し描画を行う
- * @param {*} points points、[[x1,y1],[x2,y2]...]
- * @param Number(int) offsetWidth オフセット幅(px)。正の数も負の数も来る
+ * @summary segmentsOffsetで算出したPathItemsを格納し描画を行う
+ * @param {Array<Array<Number>>} points points、[[x1,y1],[x2,y2]...]
+ * @param {Number} offsetWidth オフセット幅(px)。正の数も負の数も来る
  */
 function createOffsetPath(points,offsetWidth){
     var createdData = segmentsOffset(points,offsetWidth);
@@ -354,9 +355,9 @@ function createOffsetPath(points,offsetWidth){
 }
 //---------------------------------------------
 /**
- * 「generate」選択パスごとに、入力条件に応じて作成を繰り返す
- * @param {*} countNum オフセット数
- * @param {*} widthpx 各線間のオフセット幅
+ * @summary 選択パスごとに、入力条件に応じて作成を繰り返す
+ * @param {Number} countNum オフセット数
+ * @param {Number} widthpx 各線間のオフセット幅
  */
 function generate(countNum,widthpx){
     for(var i=0; i < myLines.length; i++){
@@ -433,26 +434,23 @@ function useropt() {
 }
 //---------------------------------------------
 // 処理をする流れ
-function go(){
-    useropt();
-    // $.writeln(result);
-}
+function go() {
 
-
-//---------------------------------------------
-// ユーザー操作
-// ドキュメントが開かれていて、かつ保存されていれば実行
-// パスが選択されているかどうかは条件に入れてない
-if (app.documents.length > 0) {
-    if (!myDoc.saved) {
-        Window.alert("ドキュメントが保存されていません");
-        // myDoc.save();
-        // でもいいかも？
-    } else if( myDoc.selection.length > 0 ){
-        go();
-    } else{
-        // 何もしない
+    // 条件1 : ドキュメントが開かれている
+    // 条件2 : 保存されている
+    if (app.documents.length = 0) {
+        Window.alert("ドキュメントが開かれていません");
+        return
     }
-} else {
-    Window.alert("ドキュメントが開かれていません");
+    
+    // セーブされているかどうか
+    var isSaved = myDoc.saved;
+
+    if (isSaved) {
+        Window.alert("実行します");
+        useropt();
+    } else {
+        Window.alert("セーブしてください");
+    }
+
 }
