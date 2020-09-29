@@ -409,64 +409,6 @@ function generate(countNum: number, widthpx: number) {
     }
 }
 
-// //---------------------------------------------
-// // ただの情報入力画面定義
-// function useropt() {
-//     var win = new Window('dialog', "enter options");
-//     win.add('statictext', undefined, "(1)ユーザー指定のオフセット数");
-//     var iCounts = win.add('edittext', undefined, userCounts);
-//     win.add('statictext', undefined, "(2)ユーザー指定のオフセット幅");
-//     var iWidthpx = win.add('edittext', undefined, userWidth);
-//     //---------------------------------------------
-//     win.confirmBtn = win.add('button', undefined, "OK", {
-//         name: 'confirm'
-//     }).onClick = function() {
-//         var countNum = Math.ceil(parseInt(iCounts.text, 10));
-//         var widthpx = parseInt(iWidthpx.text, 10);
-//         win.close();
-//         $.writeln("---------------------------------------------");
-//         $.writeln("計算開始");
-//         if (widthpx > 0&&countNum > 0){
-//             // 0pxオフセットと0回はさすがに回避
-//             generate(countNum,widthpx);
-//             $.writeln("計算終了");
-//         } else{
-//             window.alert("入力された数または幅が想定されていません");
-//         }
-//         // return;
-//     }
-//     win.add('button', undefined, "Cancel", {
-//         name: 'cancel'
-//     }).onClick = function() {
-//         win.close();
-//         // return;
-//     }
-//     win.show();
-//     return;
-// }
-// //---------------------------------------------
-// // 処理をする流れ
-// function go() {
-
-//     // 条件1 : ドキュメントが開かれている
-//     // 条件2 : 保存されている
-//     if (app.documents.length == 0) {
-//         Window.alert("ドキュメントが開かれていません");
-//         return
-//     }
-    
-//     // セーブされているかどうか
-//     var isSaved = myDoc.saved;
-
-//     if (isSaved) {
-//         Window.alert("実行します");
-//         useropt();
-//     } else {
-//         Window.alert("セーブしてください");
-//     }
-
-// }
-
 /**
  * @summary アプリケーションがセーブされているか
  * @returns {boolean} セーブされていればtrue,それ以外はfalse
@@ -486,4 +428,33 @@ function isOpenDoc(): boolean {
     } else {
         return false;
     }
+}
+
+/**
+ * 本illustratorScriptでhtmlから呼び出される関数
+ * @param {number} offsetCount 指定オフセット数
+ * @param {number} offsetWidth 指定オフセット幅
+ * @returns {string} ログ出力テキスト
+ */
+function start(offsetCount: number, offsetWidth: number): string {
+    
+    // ログ出力用配列
+    let logLines: string[] = [];
+
+    if (!isOpenDoc()) {
+        // ドキュメントが開かれていないので何もしない
+        logLines.push("開かれてない");
+
+    } else if (!isSaved()) {
+        // セーブされていないので何もしない
+        logLines.push("セーブしてない");
+
+    } else {
+        // ドキュメントが開かれており、セーブもされている
+        logLines.push("生成！");
+
+        // 実行！
+        generate(offsetCount, offsetWidth);
+    }
+    return logLines.join("\n");
 }
