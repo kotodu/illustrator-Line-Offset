@@ -1,6 +1,11 @@
 # illustrator-Line-Offset
 illustratorで線を高機能にオフセットできるスクリプト
 
+- ***注意***
+    - 現在、ver1.0.0に向けた開発を実行中
+    - AdobeCEP対応やtypescript対応などでmasterが不安定です
+    - 安定版のダウンロードは[こちら](https://github.com/kotodu/illustrator-Line-Offset/releases/tag/0.1.0)
+
 # 概要
 - illustratorでパスのオフセットを複数本同時に行う
     - 今後もしかしたら機能を拡充するかも
@@ -22,7 +27,7 @@ illustratorで線を高機能にオフセットできるスクリプト
 1. OKを押すと新たなパスが生成されます
 
 # サンプル
-![サンプル](./doc/lineOffset.PNG)
+![サンプル](./docs/lineOffset.PNG)
 
 # バージョン履歴
 [CHANGELOG.md](./CHANGELOG)
@@ -51,4 +56,62 @@ jsxの冒頭に「ユーザー定義変数」があるので、ここを変え�
 複数選択した際にそうなるのは把握してます、そのうち直すかもしれない。
 
 # 設計
-[設計.md](./doc/設計.md)
+[設計.md](./docs/設計.md)
+
+# npm-scriptについて
+- windows向けですので、各自で適宜変更してください
+    - 想定しているフォルダ構成は別記の通りです
+- 今回使用していませんが、zxpのビルドにはシェルスクリプトも用意しました
+- powershellが環境変数にセットされている前提です
+- sampleを元に、powershellのデータを各自で用意いただく形になります
+
+## npm-scriptsで想定している物
+
+### clean
+- io.kotodu.iloをアンインストールする
+    - 結果のステータスが-406なら、そもそも拡張機能が存在しない
+
+`npm run clean`
+
+### deploy
+- cleanを除く一連の動作を全て実行する
+    - build, deploy, check
+`npm run deploy`
+
+### build:tsc
+- TypeScriptで記述したソースをビルドする
+`npm run build:zxp`
+
+### build:zxp
+- 拡張機能のzxpデータをビルドする
+`npm run build:zxp`
+
+### deploy:zxp
+- ビルドデータをillustratorにインストールする
+`npm run deploy:zxp`
+
+### check
+- インストールできたか確認する
+`npm run check`
+
+## 想定しているフォルダ構成
+- パスを適宜変える必要があります
+
+```
+C:/Users/YourName/Documents
+├ Github
+│ └ illustrator-Line-Offset
+│ 　 ├ dist(ビルドしたものを出力するディレクトリ)
+│ 　 │ └ ilo.zxp(出力拡張機能)
+│ 　 ├ src
+│ 　 │ └ ソースコード群
+│ 　 ├ package.json
+│ 　 ├ build.ps1(拡張機能ビルド用powershell)
+│ 　 ├ clean.ps1(拡張機能アンインストール用powershell)
+│ 　 ├ install.ps1(拡張機能インストール用powershell)
+│ 　 └ zxpbuild.sh.sample(今回未使用のビルド用シェルスクリプト)
+├ ExManCmd_win
+│ └ ExManCmd.exe(インストール用CUI)
+├ ZXPSignCmd.exe(ZXP用の証明書発行exe)
+└ sign.p12(ZXPSignCmd.exeから出力された証明書)
+```

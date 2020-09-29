@@ -1,1 +1,6 @@
 /勉強用/
+*.ps1
+/dist/
+/node_modules/
+/src/host/js/
+/.vscode/

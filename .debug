@@ -1,0 +1,11 @@
+<ExtensionList>
+    <!-- 1 -->
+    <Extension Id="io.kotodu.ilo">
+        <HostList>
+
+            <!-- 2 -->
+            <Host Name="ILST" Port="8088"/>
+
+        </HostList>
+    </Extension>
+</ExtensionList>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>illustrator-Line-Offset 0.2.0</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+</head>
+<body>
+    <h1 class="text-center">illustrator-Line-Offset 0.2.0</h1>
+    <!-- フォーム -->
+    <form id="ilo-options" class="container" name="ilo-option" novalidate>
+        <div class="mb-3 row">
+            <label for="offsetCount" class="form-label col-auto">(1)指定オフセット数</label>
+            <input
+            name="offsetCount"
+            type="number"
+            class="form-control col-auto"
+            id="offsetCount"
+            min="1"
+            max="30"
+            value="4"
+            required
+            aria-describedby="offsetCountHelp">
+            <div
+            id="offsetCountHelp"
+            class="form-text col-auto">
+                1から30までの整数を指定してください
+            </div>
+            <div class="valid-feedback col-auto">
+                OK
+            </div>
+            <div class="invalid-feedback col-auto">
+                値が不正です
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="offsetWidth" class="form-label col-auto">(2)指定オフセット幅</label>
+            <input
+            name="offsetWidth"
+            type="number"
+            class="form-control col-auto"
+            id="offsetWidth"
+            min="1"
+            max="999"
+            value="12"
+            required
+            aria-describedby="offsetWidthHelp">
+            <div
+            id="offsetWidthHelp"
+            class="form-text col-auto">
+                1から999までの整数を指定してください
+            </div>
+            <div class="valid-feedback col-auto">
+                OK
+            </div>
+            <div class="invalid-feedback col-auto">
+                値が不正です
+            </div>
+        </div>
+        <button id="option-submit" type="button" class="btn btn-primary">オフセット実行</button>
+    </form>
+    <div class="text-center">
+        <h4>開発用ログ</h4>
+        <textarea id="ta" rows="60" cols="60" readonly class="mx-3 my-3"></textarea>
+    </div>
+    <!-- 2) A button -->
+    <!-- <button id="open-button" class="btn btn-primary btn-block">Open</button>
+    <p id="buttonComment"></p> -->
+
+    <!-- 3) Add your script dependencies here, including CEP's CSInterface.js library -->
+    <script type="text/javascript" src="CSInterface.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+
+    <!-- bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+</body>
+</html>
