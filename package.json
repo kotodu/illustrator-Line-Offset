@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "description": "illustratorで線を高機能にオフセットできるスクリプト",
   "scripts": {
-    "clean": "powershell .\\clean.ps1",
+    "clean": "powershell .\\clean.ps1 && npm run check",
     "deploy": "npm run build:tsc && npm run build:zxp && npm run deploy:zxp && npm run check",
     "build:tsc": "tsc -p ./",
     "build:zxp": "powershell .\\build.ps1",
