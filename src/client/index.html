@@ -8,77 +8,95 @@
 <body>
     <header class="text-center">
         <h1 id="h1title">illustrator-Line-Offset</h1>
-        <p class="lead" id="h2desc">パスをオフセットしてくれるプラグイン</p>
-        <p>Copyright 2020 kotodu (MIT Licence)<br><span>  Ver : </span><span id="ver">1.0.0</span></p>    
+        <p>
+            Ver : <span id="ver">0.99.0</span>
+            <span>    詳細 : https://kotodu.io/illustrator-Line-Offset</span>
+        </p>
     </header>
     <!-- フォーム -->
     <form id="ilo-options" class="container my-1" name="ilo-option" novalidate>
+        <div class="row">
+            <label
+            for="offsetCount"
+            class="form-label col-4">
+                (1)指定オフセット数
+            </label>
+            <div
+            id="offsetCountHelp"
+            class="form-text col-8">
+                1から30までの整数を指定してください
+            </div>
+        </div>
         <div class="mb-3 row">
-            <label for="offsetCount" class="form-label col-auto">(1)指定オフセット数</label>
             <input
             name="offsetCount"
             type="number"
-            class="form-control col-auto"
+            class="form-control"
             id="offsetCount"
             min="1"
             max="30"
             value="4"
             required
             aria-describedby="offsetCountHelp">
-            <div
-            id="offsetCountHelp"
-            class="form-text col-auto">
-                1から30までの整数を指定してください
-            </div>
-            <div class="valid-feedback col-auto">
+            <div class="valid-feedback">
                 OK
             </div>
-            <div class="invalid-feedback col-auto">
+            <div class="invalid-feedback">
                 値が不正です
             </div>
         </div>
+        <div class="row">
+            <label
+            for="offsetWidth"
+            class="form-label col-4">
+                (2)指定オフセット幅
+            </label>
+            <div
+            id="offsetWidthHelp"
+            class="form-text col-8">
+                1から999までの整数を指定してください
+            </div>
+        </div>
         <div class="mb-3 row">
-            <label for="offsetWidth" class="form-label col-auto">(2)指定オフセット幅</label>
             <input
             name="offsetWidth"
             type="number"
-            class="form-control col-auto"
+            class="form-control"
             id="offsetWidth"
             min="1"
             max="999"
             value="12"
             required
             aria-describedby="offsetWidthHelp">
-            <div
-            id="offsetWidthHelp"
-            class="form-text col-auto">
-                1から999までの整数を指定してください
-            </div>
-            <div class="valid-feedback col-auto">
+            <div class="valid-feedback">
                 OK
             </div>
-            <div class="invalid-feedback col-auto">
+            <div class="invalid-feedback">
                 値が不正です
             </div>
         </div>
-        <button id="option-submit" type="button" class="btn btn-primary">オフセット実行</button>
     </form>
-    <div class="card mx-3">
-        <div class="card-header">
-            開発用ログ
+    <div class="my-1 container">
+        <div class="row">
             <button
-            class="btn btn-outline-dark"
+            id="option-submit"
+            type="button"
+            class="btn btn-primary col-9 g-2">
+                オフセット実行
+            </button>
+            <button
+            class="btn btn-outline-dark small col-3 g-2"
             type="button"
             data-toggle="collapse"
-            data-target="#tadiv"
+            data-target="#ta"
             aria-expanded="false"
-            aria-controls="tadiv">
-                ＋
+            aria-controls="ta">
+                開発ログ
             </button>
         </div>
-        <div id="tadiv" class="card-body collapse mx-auto">
-            <textarea id="ta" rows="10" cols="50" readonly></textarea>
-        </div>
+    </div>
+    <div class="my-1">
+        <textarea id="ta" rows="5" readonly class="collapse small w-100 mx-2"></textarea>
     </div>
     <!-- 2) A button -->
     <!-- <button id="open-button" class="btn btn-primary btn-block">Open</button>
