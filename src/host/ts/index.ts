@@ -1,10 +1,10 @@
 /// <reference types="types-for-adobe/Illustrator/2015.3"/>
 //---------------------------------------------
-// aiLineOffset.jsx
-// version : 1.0.0
+// illustrator-Line-Offset
+// version : 0.99.0
 // Copyright : kotodu
 // Licence : MIT
-// github : https://github.com/kotodu/illustrator-Line-Offset
+// github : https://kotodu.io/illustrator-Line-Offset
 // 概要:illustratorで線を高機能にオフセットできるスクリプト
 // 想定使用:線を何本にもオフセットしたい時など
 // 注意:カーブ未対応
@@ -62,16 +62,16 @@ function crossPoint(
     x3: number,
     y3: number,
     x4: number,
-    y4: number): [number,number]{
+    y4: number): [number, number] {
     var vy1 = y2 - y1;
     var vx1 = x1 - x2;
     var c_1 = -1 * vy1 * x1 - vx1 * y1;
     var vy2 = y4 - y3;
     var vx2 = x3 - x4;
     var c_2 = -1 * vy2 * x3 - vx2 * y3;
-    
+
     var c_3 = vx1 * vy2 - vx2 * vy1;
-    if(c_3 === 0){ //平行によりうまく求められないとき。
+    if (c_3 === 0) { //平行によりうまく求められないとき。
         return [
             (x2 + x3) * 0.5,
             (y2 + y3) * 0.5];
@@ -93,7 +93,7 @@ function crossPoint(
  * @param {number} offsetWidth オフセットさせたい幅
  * @returns {[Ipoint, Ipoint]} [point1,point2] オフセット先候補1,オフセット先候補2
  */
-function pointOffset(x: number, y: number, m: number, offsetWidth: number):[Ipoint, Ipoint] {
+function pointOffset(x: number, y: number, m: number, offsetWidth: number): [Ipoint, Ipoint] {
     // 計算の都合上、オフセット候補は2つ算出される
     // 点(x,y)のオフセット先(x',y')と比較した時
     // OW^2=(x-x')^2+(y-y')^2
@@ -124,7 +124,7 @@ function pointOffset(x: number, y: number, m: number, offsetWidth: number):[Ipoi
         ]
     };
     // オフセット先候補1,オフセット先候補2
-    const optionPoints: [Ipoint, Ipoint] = [p1,p2]
+    const optionPoints: [Ipoint, Ipoint] = [p1, p2]
     return optionPoints;
 }
 
@@ -143,15 +143,15 @@ function pointOffset(x: number, y: number, m: number, offsetWidth: number):[Ipoi
  * @param {number} mTrue オフセット元の線の傾き。
  * @returns {[Ipoint, Ipoint][]}
  */
-function joinAndCheckPoints(optionsP1:[Ipoint, Ipoint],optionsP2:[Ipoint, Ipoint],mTrue: number): [Ipoint, Ipoint][]{
+function joinAndCheckPoints(optionsP1: [Ipoint, Ipoint], optionsP2: [Ipoint, Ipoint], mTrue: number): [Ipoint, Ipoint][] {
     // 線分の2点から暫定的にオフセットし4点の候補を作る
     // これの繋ぎ方6通りの内、正しいのは傾きmの2通りのみ(それ以外は作成元に交差する)
     // (P1,P2同士で)全部繋ぎ、元の線分に交差しない2線分を返す
-    const optionPairs : [Ipoint, Ipoint][] = [
-        [optionsP1[0],optionsP2[0]],
-        [optionsP1[0],optionsP2[1]],
-        [optionsP1[1],optionsP2[0]],
-        [optionsP1[1],optionsP2[1]]
+    const optionPairs: [Ipoint, Ipoint][] = [
+        [optionsP1[0], optionsP2[0]],
+        [optionsP1[0], optionsP2[1]],
+        [optionsP1[1], optionsP2[0]],
+        [optionsP1[1], optionsP2[1]]
     ]
 
     // つなぎ方候補を元に、正しい傾きの場合のみ正答とみなす
@@ -173,7 +173,7 @@ function joinAndCheckPoints(optionsP1:[Ipoint, Ipoint],optionsP2:[Ipoint, Ipoint
         } else if ((Math.abs(diffX)) < 0.0000001) {
             // Y軸にほぼ平行
             mOption = 888888.888888;
-        } else{
+        } else {
             mOption = diffY / diffX;
         }
 
@@ -186,7 +186,7 @@ function joinAndCheckPoints(optionsP1:[Ipoint, Ipoint],optionsP2:[Ipoint, Ipoint
 
     // オフセット後の2線分があるはず、ただし順不同かな？
     // なお、2線分であるとの保証ができない為、[PathPoint, PathPoint][]
-    return(answers);
+    return (answers);
 }
 
 
@@ -202,7 +202,7 @@ function createBaseSegments(points: PathPoints): Array<ISeg> {
     // points配列からセグメント配列を作成する
     // なお、配列の個数が1つ減るので、点→セグメントでmapは使用できない
     let baseSegments: Array<ISeg> = []
-    for (let i = 0; i < points.length - 1; i++){
+    for (let i = 0; i < points.length - 1; i++) {
         // 始点
         const startXY = {
             x: points[i].anchor[0],
@@ -211,11 +211,11 @@ function createBaseSegments(points: PathPoints): Array<ISeg> {
 
         // 終点。現在の次
         const endXY = {
-            x: points[i+1].anchor[0],
-            y: points[i+1].anchor[1]
+            x: points[i + 1].anchor[0],
+            y: points[i + 1].anchor[1]
         };
 
-        
+
         // セグメント作成で使う傾き、Xの差、Yの差を求める
         let m: number;
         const diffX = startXY.x - endXY.x;
@@ -241,7 +241,7 @@ function createBaseSegments(points: PathPoints): Array<ISeg> {
             m: m
         });
     }
-    
+
     return baseSegments;
 }
 
@@ -253,11 +253,11 @@ function createBaseSegments(points: PathPoints): Array<ISeg> {
  * @param {number} offsetWidth オフセット幅
  * @returns {[[number,number][],[number,number][]]} result [左のPathPoints配列,右のPathPoints配列]
  */
-function segmentsOffset(points:PathPoints,offsetWidth:number):[[number,number][],[number,number][]] {
+function segmentsOffset(points: PathPoints, offsetWidth: number): [[number, number][], [number, number][]] {
     // 120pointsあるなら119segmentsができるはず
     // iは0から118
     // 線分データ[[x1,y1],[x2,y2],m]
-    const baseSegments : ISeg[] = createBaseSegments(points);
+    const baseSegments: ISeg[] = createBaseSegments(points);
     //---------------------------------------------
     // まだ繋がってない、オフセットしただけの線分がもつ
     // x座標とy座標を格納した変数(左右別)
@@ -274,14 +274,14 @@ function segmentsOffset(points:PathPoints,offsetWidth:number):[[number,number][]
     let segRs: [Ipoint, Ipoint][] = new Array;
 
     // 線分がもつ点ごとに暫定オフセット
-    for (const seg of baseSegments){
+    for (const seg of baseSegments) {
         // セグメントの始点と終点で、それぞれオフセット先候補を作成
         const optionsP1: [Ipoint, Ipoint] = pointOffset(seg.startXY.x, seg.startXY.y, seg.m, offsetWidth);
         const optionsP2: [Ipoint, Ipoint] = pointOffset(seg.endXY.x, seg.endXY.y, seg.m, offsetWidth);
-        
+
         // セグメントの始点と終点で、それぞれ繋ぎ、正しい答えを探す
         const answers = joinAndCheckPoints(optionsP1, optionsP2, seg.m);
-        
+
         //---------------------------------------------
         // そのセグメントで、パスの流れに対しオフセット候補が右にあるか左にあるか判定
         // そのセグメントが起点から終点へYがプラスなら、
@@ -332,9 +332,9 @@ function segmentsOffset(points:PathPoints,offsetWidth:number):[[number,number][]
 
                     segR = answers[0];
                     segL = answers[1];
-                    
+
                 } else {
-                    
+
                     segR = answers[1];
                     segL = answers[0];
 
@@ -348,7 +348,7 @@ function segmentsOffset(points:PathPoints,offsetWidth:number):[[number,number][]
                 segL = answers[0];
 
             } else {
-                
+
                 segR = answers[0];
                 segL = answers[1];
 
@@ -362,9 +362,9 @@ function segmentsOffset(points:PathPoints,offsetWidth:number):[[number,number][]
 
     // 確定座標を格納する場所を定義
     // 最初の座標は確定済みなので、初期値として代入
-    let offsetPPsL: [number,number][] = [[segLs[0][0].anchor[0], segLs[0][0].anchor[1]]];
-    let offsetPPsR: [number,number][] = [[segRs[0][0].anchor[0], segRs[0][0].anchor[1]]];
-    
+    let offsetPPsL: [number, number][] = [[segLs[0][0].anchor[0], segLs[0][0].anchor[1]]];
+    let offsetPPsR: [number, number][] = [[segRs[0][0].anchor[0], segRs[0][0].anchor[1]]];
+
 
     // 2線分間の交点を算出し、確定パスポイント配列に格納
     // もし120ポイントあったなら、119セグメントが出来ているはず
@@ -375,7 +375,7 @@ function segmentsOffset(points:PathPoints,offsetWidth:number):[[number,number][]
     // 点1,2,3,4,5,6を打つ
 
     // segLから算出
-    for (let i = 0; i < segLs.length - 1; i++){
+    for (let i = 0; i < segLs.length - 1; i++) {
         const x1 = segLs[i][0].anchor[0];
         const y1 = segLs[i][0].anchor[1];
         const x2 = segLs[i][1].anchor[0];
@@ -384,13 +384,13 @@ function segmentsOffset(points:PathPoints,offsetWidth:number):[[number,number][]
         const y3 = segLs[i + 1][0].anchor[1];
         const x4 = segLs[i + 1][1].anchor[0];
         const y4 = segLs[i + 1][1].anchor[1];
-        
+
         // 2線分の交点を確定座標に追加
         offsetPPsL.push(crossPoint(x1, y1, x2, y2, x3, y3, x4, y4));
     }
 
     // segRから算出
-    for (let i = 0; i < segRs.length - 1; i++){
+    for (let i = 0; i < segRs.length - 1; i++) {
         const x1 = segRs[i][0].anchor[0];
         const y1 = segRs[i][0].anchor[1];
         const x2 = segRs[i][1].anchor[0];
@@ -399,7 +399,7 @@ function segmentsOffset(points:PathPoints,offsetWidth:number):[[number,number][]
         const y3 = segRs[i + 1][0].anchor[1];
         const x4 = segRs[i + 1][1].anchor[0];
         const y4 = segRs[i + 1][1].anchor[1];
-        
+
         // 2線分の交点を確定座標に追加
         offsetPPsR.push(crossPoint(x1, y1, x2, y2, x3, y3, x4, y4));
 
@@ -420,7 +420,7 @@ function segmentsOffset(points:PathPoints,offsetWidth:number):[[number,number][]
     ]);
 
     // オフセット結果
-    const offsetResult:[[number,number][],[number,number][]] = [offsetPPsL,offsetPPsR]
+    const offsetResult: [[number, number][], [number, number][]] = [offsetPPsL, offsetPPsR]
     return offsetResult
 }
 
@@ -432,24 +432,24 @@ function segmentsOffset(points:PathPoints,offsetWidth:number):[[number,number][]
  * @param {number} offsetWidth オフセット幅(px)。正の数も負の数も来る
  * @returns {PathItem[]} 作成したPathItem配列
  */
-function createOffsetPath(points: PathPoints, offsetWidth: number): PathItem[]{
-    
+function createOffsetPath(points: PathPoints, offsetWidth: number): PathItem[] {
+
     // オフセット結果配列
-    const createdData: [[number,number][],[number,number][]] = segmentsOffset(points, offsetWidth);
+    const createdData: [[number, number][], [number, number][]] = segmentsOffset(points, offsetWidth);
 
     // @ts-ignore
     // type-for-adobeでは対応していないプロパティの模様
-    let newLine01 : PathItem = app.activeDocument.pathItems.add();
+    let newLine01: PathItem = app.activeDocument.pathItems.add();
     newLine01.stroked = true;
     newLine01.setEntirePath(createdData[0]);
 
     // @ts-ignore
     // type-for-adobeでは対応していないプロパティの模様
-    let newLine02 : PathItem = app.activeDocument.pathItems.add();
+    let newLine02: PathItem = app.activeDocument.pathItems.add();
     newLine02.stroked = true;
     newLine02.setEntirePath(createdData[1]);
 
-    return [newLine01,newLine02]
+    return [newLine01, newLine02]
 }
 
 
@@ -478,8 +478,8 @@ function generate(countNum: number, widthpx: number) {
     // 型変換周りでエラーを吐く(それはそう)が、今回は無視
     let paths: PathItem[] = [];
     for (const obj of selections) {
-        if ( obj.typename == "PathItem") {
-            
+        if (obj.typename == "PathItem") {
+
             // pathItemとみなして追加する
             paths.push(obj as PathItem);
         }
@@ -556,7 +556,7 @@ function isSaved(): boolean {
  * @returns {boolean} 何も開いていなければfalse,それ以外はtrue
  */
 function isOpenDoc(): boolean {
-    const docsCount:number = app.documents.length;
+    const docsCount: number = app.documents.length;
     if (docsCount > 0) {
         return true;
     } else {
@@ -565,7 +565,7 @@ function isOpenDoc(): boolean {
 }
 
 /**
- * 本illustratorScriptでhtmlから呼び出される関数
+ * @summary 本illustratorScriptでhtmlから呼び出される関数
  * @param {number} offsetCount 指定オフセット数
  * @param {number} offsetWidth 指定オフセット幅
  * @returns {string} ログ出力テキスト
@@ -595,6 +595,6 @@ function start(offsetCount: number, offsetWidth: number): string {
 }
 
 // テスト用
-function hello() :string{
+function hello(): string {
     return "hello world!"
 }
