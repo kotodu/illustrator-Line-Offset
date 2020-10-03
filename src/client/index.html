@@ -6,13 +6,13 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
 </head>
 <body>
-    <header class="text-center my-5">
+    <header class="text-center">
         <h1 id="h1title">illustrator-Line-Offset</h1>
         <p class="lead" id="h2desc">パスをオフセットしてくれるプラグイン</p>
-        <p>Copyright 2020 kotodu (MIT Licence)<br><span>  Ver : </span><span id="ver"></span></p>    
+        <p>Copyright 2020 kotodu (MIT Licence)<br><span>  Ver : </span><span id="ver">1.0.0</span></p>    
     </header>
     <!-- フォーム -->
-    <form id="ilo-options" class="container my-5" name="ilo-option" novalidate>
+    <form id="ilo-options" class="container my-1" name="ilo-option" novalidate>
         <div class="mb-3 row">
             <label for="offsetCount" class="form-label col-auto">(1)指定オフセット数</label>
             <input
@@ -77,7 +77,7 @@
             </button>
         </div>
         <div id="tadiv" class="card-body collapse mx-auto">
-            <textarea id="ta" rows="50" cols="50" readonly></textarea>
+            <textarea id="ta" rows="10" cols="50" readonly></textarea>
         </div>
     </div>
     <!-- 2) A button -->
