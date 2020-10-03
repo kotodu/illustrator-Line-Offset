@@ -32,3 +32,6 @@ async function validOption() {
     //     document.getElementById("ta").value = log;
     // });
 }
+
+// ロード時に変更する
+document.getElementById("ver").textContent = csi.getCurrentApiVersion();

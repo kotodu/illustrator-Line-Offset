@@ -2,13 +2,17 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>illustrator-Line-Offset 0.2.0</title>
+    <title>illustrator-Line-Offset</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
 </head>
 <body>
-    <h1 class="text-center">illustrator-Line-Offset 0.2.0</h1>
+    <header class="text-center my-5">
+        <h1 id="h1title">illustrator-Line-Offset</h1>
+        <p class="lead" id="h2desc">パスをオフセットしてくれるプラグイン</p>
+        <p>Copyright 2020 kotodu (MIT Licence)<br><span>  Ver : </span><span id="ver"></span></p>    
+    </header>
     <!-- フォーム -->
-    <form id="ilo-options" class="container" name="ilo-option" novalidate>
+    <form id="ilo-options" class="container my-5" name="ilo-option" novalidate>
         <div class="mb-3 row">
             <label for="offsetCount" class="form-label col-auto">(1)指定オフセット数</label>
             <input
@@ -59,9 +63,22 @@
         </div>
         <button id="option-submit" type="button" class="btn btn-primary">オフセット実行</button>
     </form>
-    <div class="text-center">
-        <h4>開発用ログ</h4>
-        <textarea id="ta" rows="60" cols="60" readonly class="mx-3 my-3"></textarea>
+    <div class="card mx-3">
+        <div class="card-header">
+            開発用ログ
+            <button
+            class="btn btn-outline-dark"
+            type="button"
+            data-toggle="collapse"
+            data-target="#tadiv"
+            aria-expanded="false"
+            aria-controls="tadiv">
+                ＋
+            </button>
+        </div>
+        <div id="tadiv" class="card-body collapse mx-auto">
+            <textarea id="ta" rows="50" cols="50" readonly></textarea>
+        </div>
     </div>
     <!-- 2) A button -->
     <!-- <button id="open-button" class="btn btn-primary btn-block">Open</button>
