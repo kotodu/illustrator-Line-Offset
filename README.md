@@ -1,10 +1,11 @@
 # illustrator-Line-Offset
-illustratorで線を高機能にオフセットできるスクリプト
+- illustratorで線を高機能にオフセットできるスクリプト
+- [GitHub](https://github.com/kotodu/illustrator-Line-Offset/)
 
-- ***注意***
-    - 現在、ver1.0.0に向けた開発を実行中
-    - AdobeCEP対応やtypescript対応などで不安定です
-    - 安定版のダウンロードは[こちら](https://github.com/kotodu/illustrator-Line-Offset/releases/tag/0.1.0)
+## 注意
+- 現在、ver1.0.0に向けた開発を実行中
+- AdobeCEP対応やtypescript対応などで不安定です
+- 安定版のダウンロードは[こちら](https://github.com/kotodu/illustrator-Line-Offset/releases/tag/0.1.0)
 
 # 概要
 - illustratorでパスのオフセットを複数本同時に行う
@@ -12,6 +13,8 @@ illustratorで線を高機能にオフセットできるスクリプト
 - jsxではなく、ZXPデータでの提供
 
 # 使い方
+- ZXPデータは ./build/ilo_0.99.0.zxp にあります
+
 ## 導入
 1. [ZXPデータ](./build/ilo_0.99.0.zxp)をダウンロードする
 2. ZXPをインストールする
@@ -19,6 +22,8 @@ illustratorで線を高機能にオフセットできるスクリプト
     - [Anastasiy’s Extension Manager](http://install.anastasiy.com/)
     - [その他情報](https://helpx.adobe.com/jp/animate/kb/install-animate-extensions.html)
 3. 上のメニューバー>ウィンドウ>エクステンション からillustrator-Line-Offsetを選択する
+
+![showExtension](./docs/showExtension.png)
 
 ## 使用
 1. スクリプト実行前のIllustratorデータを保存する
