@@ -1,5 +1,5 @@
 interface Ipoint{
-    anchor:Array<number>
+    anchor:[number,number]
 }
 export {
     Ipoint
