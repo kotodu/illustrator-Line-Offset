@@ -1,6 +1,6 @@
 {
   "name": "illustrator-line-offset",
-  "version": "0.2.0",
+  "version": "0.99.0",
   "description": "illustratorで線を高機能にオフセットできるスクリプト",
   "scripts": {
     "clean": "powershell .\\clean.ps1 && npm run check",
