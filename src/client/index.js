@@ -27,4 +27,8 @@ async function validOption() {
         // ログ出力された場合は、出力する。
         document.getElementById("ta").value = log;
     });
+    // csi.evalScript(`hello()`, (log) => {
+    //     // ログ出力された場合は、出力する。
+    //     document.getElementById("ta").value = log;
+    // });
 }
