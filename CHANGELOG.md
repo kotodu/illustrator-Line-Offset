@@ -1,4 +1,4 @@
-# changelog
+# CHANGELOG
 
 <!-- ## [ver. number] yyyy/mm/dd
 ### Added
@@ -12,14 +12,25 @@
 ### Fixed
 - 不具合修正 -->
 
-## [Unreleased]
-- 1.0.0に向け諸々を実装中(現在、非常に不安定)
-    - adobe-CEP対応
-    - typescript対応
+## [0.99.0]2020/10/04
 ### Added
+- 開発ログ出力機能
+    - そのまま載せているけど、普通の人は気にしないでね
+- ドキュメントの充実
+
 ### Changed
+- 値のvalidationをフロント側で実施
+
 ### Deprecated
+- illustratorスクリプト単体での配布は廃止
+- 既定値変更機能の廃止
+    - 提供方法の変更に伴うもの
+
 ### Fixed
+- 大規模リファクタリング
+    - 処理の流れは変えず、しかしほぼすべての行に手が入っている
+- TypeScript対応・AdobeCEP対応
+    - 一言で済ませたくないレベルで大変だった
 
 ## [0.1.0]2020/02/15
 ### Added
