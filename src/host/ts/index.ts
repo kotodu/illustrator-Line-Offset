@@ -25,12 +25,14 @@ import { ISeg } from "./if/segs";
 // 大域変数の定義
 //---------------------------------------------
 
-// /**
-//  * @summary 開発用ログ出力配列。
-//  * @description (pureではないが……ログを出力させる)
-//  * @type {string[]} 
-//  */
+/**
+ * @summary 開発用ログ出力配列。
+ * @description (pureではないが……ログを出力させる)
+ * @type {string[]} 
+ */
 // let logLines: string[] = [];
+// 用意はしたが……全体変数は今読み込めないので。
+// ログ用ライブラリを今後導入？
 
 
 
@@ -492,7 +494,7 @@ function generate(countNum: number, widthpx: number) {
 
         // オフセット数が偶数か奇数か、で挙動が異なる
         // 挙動が似ている面もあるが、今回は完全に区別する
-        if (countNum % 2 == 0) {
+        if (countNum % 2 === 0) {
             // 偶数
             // 初回オフセットは偶数なら指定幅の半分
             // j*widthpxでどれだけオフセットするのかに該当
@@ -504,7 +506,7 @@ function generate(countNum: number, widthpx: number) {
             createOffsetPath(points, nowOffsetWidth);
 
             // 残りのオフセット回数分、オフセットを行う
-            for (let j = 1; j < countNum; j += 2) {
+            for (let j = 2; j < countNum; j += 2) {
 
                 // オフセット幅を増やす
                 nowOffsetWidth += widthpx;
@@ -569,10 +571,11 @@ function isOpenDoc(): boolean {
  * @returns {string} ログ出力テキスト
  */
 function start(offsetCount: number, offsetWidth: number): string {
-    
-    // ログ出力用配列
-    let logLines: string[] = [];
 
+    // logLines.push("offsetCount : " + offsetCount);
+    // logLines.push("offsetCount : " + offsetWidth);
+    // // ログ出力用配列
+    var logLines: string[] = [];
     if (!isOpenDoc()) {
         // ドキュメントが開かれていないので何もしない
         logLines.push("開かれてない");
